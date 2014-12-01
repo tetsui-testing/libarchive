@@ -1225,7 +1225,7 @@ __archive_read_register_format(struct archive_read *a,
     int (*cleanup)(struct archive_read *),
     int (*format_capabilities)(struct archive_read *),
     int (*has_encrypted_entries)(struct archive_read *),
-	int (*seek_header)(struct archive_read*, size_t))
+    int (*seek_header)(struct archive_read*, size_t))
 {
 	int i, number_slots;
 

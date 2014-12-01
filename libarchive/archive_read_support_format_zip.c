@@ -2877,8 +2877,8 @@ archive_read_format_zip_seekable_read_header(struct archive_read *a,
 	}
 
 	offset = archive_filter_bytes(&a->archive, 0);
-        zip->entry = (struct zip_entry *)__archive_rb_tree_find_node_geq(
-            &zip->tree, &offset);
+	zip->entry = (struct zip_entry *)__archive_rb_tree_find_node_geq(
+	    &zip->tree, &offset);
 
 	if (zip->entry == NULL)
 		return ARCHIVE_EOF;
@@ -2929,7 +2929,7 @@ archive_read_format_zip_seekable_seek_header(struct archive_read *a,
 	int64_t offset;
 	int r;
 
-        zip->unconsumed = 0;
+	zip->unconsumed = 0;
 
 	if (zip->zip_entries == NULL) {
 		r = slurp_central_directory(a, zip);
@@ -3020,7 +3020,7 @@ archive_read_support_format_zip_seekable(struct archive *_a)
 	    archive_read_format_zip_cleanup,
 	    archive_read_support_format_zip_capabilities_seekable,
 	    archive_read_format_zip_has_encrypted_entries,
-		archive_read_format_zip_seekable_seek_header);
+	    archive_read_format_zip_seekable_seek_header);
 
 	if (r != ARCHIVE_OK)
 		free(zip);
