@@ -433,8 +433,7 @@ archive_read_support_format_7zip(struct archive *_a)
 	    NULL,
 	    archive_read_format_7zip_cleanup,
 	    archive_read_support_format_7zip_capabilities,
-	    archive_read_format_7zip_has_encrypted_entries,
-	    NULL);
+	    archive_read_format_7zip_has_encrypted_entries);
 
 	if (r != ARCHIVE_OK)
 		free(zip);

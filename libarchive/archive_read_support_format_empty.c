@@ -56,7 +56,6 @@ archive_read_support_format_empty(struct archive *_a)
 	    NULL,
 	    NULL,
 	    NULL,
-	    NULL,
 	    NULL);
 
 	return (r);
