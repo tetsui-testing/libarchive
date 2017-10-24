@@ -233,7 +233,7 @@ archive_compressor_xz_init_stream(struct archive_write_filter *f,
 	if (f->code == ARCHIVE_FILTER_XZ) {
 #ifdef HAVE_LZMA_STREAM_ENCODER_MT
 		if (data->threads != 1) {
-			bzero(&mt_options, sizeof(mt_options));
+			memset(&mt_options, 0, sizeof(mt_options));
 			mt_options.threads = data->threads;
 			mt_options.timeout = 300;
 			mt_options.filters = data->lzmafilters;
@@ -253,7 +253,7 @@ archive_compressor_xz_init_stream(struct archive_write_filter *f,
 		/* Calculate a coded dictionary size */
 		if (dict_size < (1 << 12) || dict_size > (1 << 27)) {
 			archive_set_error(f->archive, ARCHIVE_ERRNO_MISC,
-			    "Unacceptable dictionary dize for lzip: %d",
+			    "Unacceptable dictionary size for lzip: %d",
 			    dict_size);
 			return (ARCHIVE_FATAL);
 		}

@@ -41,9 +41,9 @@ __FBSDID("$FreeBSD: src/lib/libarchive/archive_read_open_memory.c,v 1.6 2007/07/
  */
 
 struct read_memory_data {
-	unsigned char	*start;
-	unsigned char	*p;
-	unsigned char	*end;
+	const unsigned char	*start;
+	const unsigned char	*p;
+	const unsigned char	*end;
 	ssize_t	 read_size;
 };
 
@@ -70,13 +70,12 @@ archive_read_open_memory2(struct archive *a, const void *buff,
 {
 	struct read_memory_data *mine;
 
-	mine = (struct read_memory_data *)malloc(sizeof(*mine));
+	mine = (struct read_memory_data *)calloc(1, sizeof(*mine));
 	if (mine == NULL) {
 		archive_set_error(a, ENOMEM, "No memory");
 		return (ARCHIVE_FATAL);
 	}
-	memset(mine, 0, sizeof(*mine));
-	mine->start = mine->p = (unsigned char *)buff;
+	mine->start = mine->p = (const unsigned char *)buff;
 	mine->end = mine->start + size;
 	mine->read_size = read_size;
 	archive_read_set_open_callback(a, memory_read_open);
