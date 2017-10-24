@@ -418,6 +418,7 @@ zip_time(const char *p)
  *	id1+size1+data1 + id2+size2+data2 ...
  *  triplets.  id and size are 2 bytes each.
  */
+static int
 process_extra(struct archive_read *a, struct archive_entry *entry,
 		const char *p, size_t extra_length, struct zip_entry* zip_entry)
 {
@@ -899,7 +900,7 @@ zip_read_local_file_header(struct archive_read *a, struct archive_entry *entry,
 		return (ARCHIVE_FATAL);
 	}
 
-	if (ARCHIVE_OK != process_extra(a, h, extra_length, zip_entry)) {
+	if (ARCHIVE_OK != process_extra(a, entry, h, extra_length, zip_entry)) {
 		return ARCHIVE_FATAL;
 	}
 	__archive_read_consume(a, extra_length);
@@ -2779,7 +2780,7 @@ slurp_central_directory(struct archive_read *a, struct zip *zip)
 			    "Truncated ZIP file header");
 			return ARCHIVE_FATAL;
 		}
-		if (ARCHIVE_OK != process_extra(a, p + filename_length, extra_length, zip_entry)) {
+		if (ARCHIVE_OK != process_extra(a, NULL, p + filename_length, extra_length, zip_entry)) {
 			return ARCHIVE_FATAL;
 		}
 
